@@ -1,1 +1,378 @@
+This is a general "knowledge dump" of what I know about LLMs and NLP
+By Adam Lang
+Date: 6/3/2024
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Generative AI Models I have worked with
+================================================================================================================================================================================
+- GPT 3.5 turbo
+- GPT 4.0
+- llama 2, llama 3
+- BERT
+- RadBERT 
+- BioGPT
+- Flan T5 (encoder-decoder)
+- Whisper
+- Wav2Vec
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LLMs Overview - Focus on Amazon Bedrock
+================================================================================================================================================================================
+Foundation Models (broad categorization of Models)
+- large deep learning neural networks + trained on massive datasets
+- Generate text, images, videos or both 
+
+
+Focus area: Text Generation 
+- LLMs
+- example: GPT4, llama 3 
+
+
+Focus area: Image Generation 
+- image generation or Diffusion model
+- image generation: text to image or image to image 
+- example: Stable Diffusion, DALLE-3
+
+Focus area: Text + Vision
+- 'Multi modal' models 
+- Example: Claude3 (Anthropic)
+- Healthcare interesting use case: image x-ray + text input --> output 
+
+
+
+Gen AI from AWS 
+1. Amazon EC2 Trn1n + EC2 Inf2
+	* IaaS - infrastructure as a service (self managed) for ML experts to build, train and deploy your own models.
+	* AWS manages physical server --> everything else the customer 
+	* AWS Inferentia -- lowest cost per inference in the cloud for running DL models 
+	* AWS Inferentia2 -- high performance at lowest cost per inference for LLMs and diffusion models 
+	* AWS Tranium -- most cost efficent for LLM and diffusion models => training models 
+2. Amazon Bedrock
+	* fully managed serverless service offers choice of high-performing foundation models from leading AI companies. 
+	* Serverless --> pay only what you use! 
+3. Amazon Sagemaker Foundation Model Hub (JumpStart)
+	* provides pretrained, open-source models 
+	* deploy open source foundation models with custom configurations
+	* Instance type depends on what you pay 
+4. Amazon CodeWhisperer 
+	* AI coding companion -- 15 programming languages for code generation 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Prompting Techniques
+================================================================================================================================================================================
+* General Concepts
+- vary and iterate prompts
+- use delimeters
+- specify structured outputs
+- use temperature parameter
+
+Prompt Techniques (Specific)
+- few shot
+- one shot 
+- zero shot 
+- multi-step
+- iterative 
+- step back (Sometimes search quality and model generations can be tripped up by the specifics of a question. One way to handle this is to first generate a more abstract, "step back" question and to query based on both the original and step back question.)
+- etc...
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Retrieval Augmented Generation (RAG)
+* I have a specific repo devoted to this but will list some of the techniques here that I have used or experimented with:
+===============================================================================================================================================================================
+
+1. Chunking
+	- fixed-size chunking
+	- content-aware chunking 
+	- recursive chunking 
+	- specialized chunking
+	- medical text chunking 
+	
+2. Vectorization and Embeddings
+* MTEB leaderboard
+* Word embeddings vs. Sentence Embeddings 
+
+
+3. Search Index 
+- Vector store index 
+	* Flat index 
+	* Vector index 
+	* Nearest neighbors (clustering, trees, HNSW)
+
+- Hierarchical Indices
+	* Summaries
+	* Document Chunks (retrieve ONLY relevant docs --> then search top K)
+
+- Context Enrichment --> retrieve smaller chunks for better quality + add up or include surrounding text or sentences for semantic context 
+	* Sentence Window Retrieval ("sliding window")
+	* Auto-merging retrieval (similar to sentence window --> top k split --> hierarchical linkage)
+	
+
+- Fusion Retrieval (hybrid search)
+	* keyword (lexical) search --> algorithm such as TF-IDF or BM25 (most common)
+	* semantic (vector) search 
+	
+	* Combine the 2 methods using "Reciprocal rank fusion" algorithm 
+		* Commonly done with "cosine similarity score"
+		
+4. Reranking 
+- standard RAG uses embeddings pre-computed with bi-encoder --> compresses document into fixed length vectors --> vector DB 
+- bi-encoders are fast and easy to scale --> but biencoders do not know anything about semantic relationships between sentences 
+- cross-encoders --> query + retrieved document encoded simultaneously
+
+
+
+RAG Metrics 
+- Hit Rate 
+- Mean Reciprocal Rank (MRR)
+- Mean Average Precision (MAP)
+- Normalized Discounted Cumulative Gain (NDCG)
+
+
+
+5. Rerank + Hybrid search 
+- hybrid retrieval + semantic ranking --> grounds LLM applications 
+
+
+6. Contextual Compression 
+- minimizes storage footprint of data and preserving information 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Vector Databases
+===============================================================================================================================================================================
+* Vector DBs that I have used:
+1. MongoDB Atlas
+2. Chroma
+3. Pinecone
+4. Weaviate
+
+* Looking to experiment with Graph DBs as well (i.e. Neo4j)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Structured Outputs from LLMs
+===============================================================================================================================================================================
+- Prompting vs. fine tuning hyperparameters vs. serialization (i.e. pydantic)
+- Fine tuning Methods + process
+
+supervised fine tuning 
+- basic hyperparameters
+- transfer learning 
+- domain specific 
+- multi-task learning 
+- few shot learning 
+- task-specific fine-tuning
+
+
+RLHF
+- reward modeling 
+- proximal policy optimization (PPO)
+- comparative ranking 
+- preference learning (reinforcement learning with preference feedback)
+- parameter efficient fine tuning (PEFT)
+	* LoRA
+	* Prefix tuning
+	* P tuning
+	* Prompt Tuning
+	* QLoRA
+
+
+Fine tuning process 
+1. Data preparation 
+2. Choose a pre-trained model for right task 
+3. Choose correct parameters for fine-tuning 
+4. Validation 
+5. Model Iteration
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LLM Evaluation Metrics
+===============================================================================================================================================================================
+LLM benchmarks
+- GLUE
+- SuperGLUE
+- HellaSwag
+- TruthfulQA
+- MMLU
+
+Eval frameworks/platforms
+- Azure AI studio evaluation (MSFT)
+- Prompt Flow (MSFT)
+- Weights & Biases
+- LangSmith (from LangChain)
+- TruLens (TruEra)
+- VertexAI (Google)
+- AWS Bedrock
+- DeepEval (Confident AI)
+- Parea AI 
+
+Good overview article: https://medium.com/data-science-at-microsoft/evaluating-llm-systems-metrics-challenges-and-best-practices-664ac25be7e5
+
+
+Evaluation Techniques
+- Human evaluation ('eyeballing')
+- Human Annotation (aka supervised evaluation)
+- Standard machine learning metrics 
+	* Exact match 
+	* F1 score
+	* Precision
+	* Recall
+	* Accuracy
+	* Confusion Matrix
+	
+- Code eval datasets 
+- holistic eval of language models 
+- robustness
+- inference efficiency 
+- case specific benchmarks 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Classical NLP Techniques
+- These are still important when building, fine-tuning or working with LLMs
+===============================================================================================================================================================================
+1. Text classification
+2. Named Entity Recognition (NER)
+3. Named Entity Linking
+4. Encoding text 
+  * one-hot (present vs not)
+  * CountVectorizer (most frequent words)
+  * TF-IDF (least frequent words in corpus)
+5. Python Frameworks
+  * spacy
+  * NLTK
+  * Gensim
+6. N-grams
+7. Text pre-processing
+  a. Tokenization
+    * BPE
+    * sub-word
+    * character level
+    * white space
+    * Autotokenizer (hugggingface)
+    * others....
+  b. Stemming
+  c. Lemmatization
+  d. Morphemes
+  e. Phonemes (CMU dict)
+
+8. Vectorization + Embeddings
+* Pre-built embeddings vs. custom?
+* MTEB leaderboard
+* word vs. sentence embeddings (SBERT)
+
+9. Text splitting
+  * recursive text splitting most common, others...
+- HTML header
+- HTML section 
+- character
+- code 
+- markdown header 
+- recursive JSON 
+- semantic chunking/splitter
+- tokens 
+- etc...
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Deep Learning
+===============================================================================================================================================================================
+- Besides "classical NLP" there are "classical" Deep Learning Algorithms that are still used in addition to the modern day Transformer.
+
+1. ANN
+- multi-layer perceptron (MLP) is a basic feedforward NN
+- if there is more than 1 hidden layer => Deep ANN
+
+
+2. RNN
+- sequential data (text, audio, video, etc..)
+- previous input ==> produces output 
+- weights and biases for all nodes in the layer are the SAME.
+
+problem: SHORT-TERM MEMORY due to vanishing gradients
+- during backpropagation --> update model weights --> keep losing information! 
+
+solution: GRUs and LSTMs
+
+3. GRU (gated recurrent units)
+- GRUs have 2 gates (reset gate, update gate)
+- each gate has its own NN
+
+4. LSTM (long short term memory)
+- similar to GRUs
+- 3 gates:
+	1. forget gate 
+	2. input gate 
+	3. output gate 
+- all gates use sigmoid function => output gate values between 0 and 1 
+
+
+5. CNN
+- convolutional layers
+	* sliding windows/grids with filters/kernels => matrix multiplication
+	* step
+- rectified linear units (ReLU)
+	* activation function applied after each convolutional operation 
+	* logits can be processed for non-linear relationships in the data 
+	* helps with vanishing gradients
+- pooling layers 
+	* extracts the most important/significant features from convolutions 
+	* aggregate operations (max, sum, avg)
+	* helps mitigate overfitting
+- fully connected layers
+	* last layer of convolutional neural network 
+	* inputs correspond to flattened 1D matrix generated by last pooling layer 
+	
+- Softmax prediction layer generates probabilities 
+
+Mitigation for overfitting 
+- Dropout
+- Batch normalization
+- Pooling layers 
+- Early stopping
+- Noise injection 
+- L1 and L2 normalization 
+- Data augmentation 
+
+
+6. Transformers
+  Transformers 
+- excel at sequential data (attention is all you need)
+- transformers are "parallelizable" unlike RNNs
+- transformers can capture long range dependencies (unlike RNNs or CNNs)\
+- no assumptions about temporal/spatial relationships across objects 
+
+
+input embeddings
+positional encodings 
+transformer block
+	* multiple blocks stacked together 
+	* Each block has:
+		1. multi-head self-attention mechanism (weight token importance in a sequence)
+		2. position-wise feed-forward neural network
+		
+linear blocks 
+- linear block (fully connected layer/dense layer) --> linear mapping from vector space to original input domain
+	* important for "decision making" in the prediction
+
+softmax block 
+- final stage that takes logit scores -> normalizes into probability distribution
+- each softmax output is the model's confidence prediction for a class or token. 
+
+
+Types of transformers 
+1. Bidirectional (BERT)
+- words in relation to all other words in a sentence NOT in isolation
+- uses bidirectional masked language model (MLM)
+- training -> random masks --> predict these tokens based on context
+- main importance: left to right and right to left modeling 
+
+2. Generative pretrained transformers (GPT)
+- stacked transformer decoders 
+- Autoregressive --> regress/predict next word or sequence based on previous value/word/sequences.
+
+3. Bidirectional and autoregressive transformers (BART)
+- combines both BERT bidirectional encoder + GPT autoregressive decoder
+- generates output sequence 1 token at at time 
+
+4. Multimodal transformers 
+- many inputs: usually image + text 
+
+5. Vision transformers 
+- unlike CNNs before them, these models process an image as a sequence of fixed-size patches (similar to words in a sentence).
+- Global self attention helps these models. 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Python
+1. PyTorch
+2. TensorFlow
+
+Huggingface transformers library 
