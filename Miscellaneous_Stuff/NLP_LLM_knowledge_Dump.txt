@@ -8,11 +8,15 @@ Generative AI Models I have worked with
 - GPT 4.0
 - llama 2, llama 3
 - BERT
-- RadBERT 
-- BioGPT
 - Flan T5 (encoder-decoder)
 - Whisper
 - Wav2Vec
+
+Medical Specific Models
+- RadBERT
+- BiomedBERT (pubmedBERT)
+- Clinical-AI-Apollo-medical-NER
+- Falconsai-T5 Large for Medical Text Summarization
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 LLMs Overview - Focus on Amazon Bedrock
@@ -369,6 +373,67 @@ Types of transformers
 5. Vision transformers 
 - unlike CNNs before them, these models process an image as a sequence of fixed-size patches (similar to words in a sentence).
 - Global self attention helps these models. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Machine Learning - Bias-Variance Trade off and Overfitting vs. Underfitting
+=============================================================================================================================================================================================================================
+Bias
+* Inability for a machine learning model to capture the true relationship in the data. 
+
+Metrics
+1. mean squared error (MSE)
+2. mean absolute error (MAE)
+sums of squares --> how well outcome fits data
+
+
+
+Variance
+- difference in fits between data sets 
+
+
+
+
+low bias 
+-- model can easily adapt to new data 
+
+high variability
+-- vastly different sums of squares for different data sets 
+
+
+
+high bias 
+-- example would be straight line (bias to this prediction)
+
+low variability
+-- sums of squares does not vary, little error from the prediction always 
+
+
+
+Overfitting
+- training data is fit too well
+- model is too complex 
+-- low training error
+-- high test error 
+
+Underfitting
+- training data is fit poorly
+- model is not complex enough 
+-- high training error 
+-- high test error 
+
+
+Machine Learning ideal algorithms
+-- low bias 
+-- low variability (consistent predictions across different datasets)
+
+
+
+How do we find "sweet spot" between simple and complicated models?
+- regularization
+- boosting
+- bagging 
+
+
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Python
