@@ -5,5 +5,5 @@
     * Amazon Bedrock
     * S3 bucket
     * AWS lambda
-    * Stability AI SDXL v1.0 Stable Diffusion Text To image model with prompts only.
+    * Stability AI SDXL v1.0 Stable Diffusion Text To image model with prompts only to create "movie posters".
     * Deployed to REST API
