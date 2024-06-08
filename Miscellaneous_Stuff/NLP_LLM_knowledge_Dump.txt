@@ -353,19 +353,50 @@ softmax block
 
 
 Types of transformers 
-1. Bidirectional (BERT)
+1. Bidirectional (BERT) - ENCODER ONLY
 - words in relation to all other words in a sentence NOT in isolation
 - uses bidirectional masked language model (MLM)
 - training -> random masks --> predict these tokens based on context
-- main importance: left to right and right to left modeling 
+- main importance: left to right and right to left modeling
 
-2. Generative pretrained transformers (GPT)
+When to Use an encoder only model? 
+- Ideal when you want to convert variable-length input sequences into fixed-length representations or embeddings.
+- Encoders are typically employed to process the input sequence, such as a sentence or document, and capture its semantic meaning or contextual information.
+- The encoder can be based on recurrent neural networks (RNNs), such as LSTM or GRU, or transformer-based architectures like the Transformer encoder.
+- Common use cases for encoders include:
+	a. text classification
+	b. sentiment analysis
+	c. machine translation
+	d. text generation from prompts
+
+2. Generative pretrained transformers (GPT) - DECODER ONLY
 - stacked transformer decoders 
 - Autoregressive --> regress/predict next word or sequence based on previous value/word/sequences.
 
-3. Bidirectional and autoregressive transformers (BART)
+When to use a decoder only model?
+- Use a decoder when you want to generate output sequences based on the fixed-length representations obtained from the encoder.
+- Decoders are employed in tasks where the output sequence is dependent on the input sequence, such as language translation or text generation.
+- The decoder takes the fixed-length representation and generates a sequence, one token at a time, autoregressively.
+- The decoder can be based on RNNs, such as LSTM or GRU, or transformer-based architectures like the Transformer decoder or the GPT (Generative Pre-trained Transformer) model.
+- Decoders are commonly used in:
+	a. machine translation, 
+	b. text summarization
+	c. image captioning
+	d. dialogue generation.
+
+
+3. Bidirectional and autoregressive transformers (BART, T5) - ENCODER + DECODER
 - combines both BERT bidirectional encoder + GPT autoregressive decoder
 - generates output sequence 1 token at at time 
+
+Why use ENCODER-DECODER models?
+- Typically used for natural language processing tasks that involve:
+	a. understanding input sequences and generating output sequences, often with different lengths and structures. 
+	a. They are very good at tasks where there is a complex mapping between the input and output sequences and where it is crucial to capture the relationships between the elements in both sequences.
+
+What are some common use cases for encoder-decoder models?
+	a. text translation
+	b. text summarization.
 
 4. Multimodal transformers 
 - many inputs: usually image + text 
@@ -374,6 +405,19 @@ Types of transformers
 - unlike CNNs before them, these models process an image as a sequence of fixed-size patches (similar to words in a sentence).
 - Global self attention helps these models. 
 
+
+AUTOENCODERS
+- Autoencoder is a unsupervised deep learning network. 
+- It learns efficient data representation, which means encoding. 
+- It is unsupervised deep learning, more specifically it is self supervised deep learning as it is directed type of Neural Network which does not too much dependent on training data, but it can generate own labeled data.
+
+DIFFUSION MODELS
+- Diffusion models can be considered a type of autoencoder, but they have different purposes and aren't interchangeable:
+- Diffusion models are built by training a neural network to invert a procedure that gradually turns data into noise. The underlying idea is to learn how to denoise examples of a distribution. Diffusion models can be used to generate high-quality images that are close to what a camera would take. However, their image outputs can sometimes be noisy and blurry.
+
+- Autoencoders: These neural networks are trained to predict their input.
+
+- Diffusion models can also be formulated as masked autoencoders (DiffMAE) by conditioning them on masked input. This approach has several capabilities, including image inpainting, classification accuracy, and initialization for downstream recognition tasks.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Machine Learning - Bias-Variance Trade off and Overfitting vs. Underfitting
 =============================================================================================================================================================================================================================
