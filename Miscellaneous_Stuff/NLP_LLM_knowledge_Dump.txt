@@ -418,6 +418,9 @@ DIFFUSION MODELS
 - Autoencoders: These neural networks are trained to predict their input.
 
 - Diffusion models can also be formulated as masked autoencoders (DiffMAE) by conditioning them on masked input. This approach has several capabilities, including image inpainting, classification accuracy, and initialization for downstream recognition tasks.
+
+Great article comparing Stable Diffusion vs. Autoencoders
+- https://medium.com/@lukas.noebauer/stable-diffusion-vs-autoencoder-dc98b9e8d696
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Machine Learning - Bias-Variance Trade off and Overfitting vs. Underfitting
 =============================================================================================================================================================================================================================
