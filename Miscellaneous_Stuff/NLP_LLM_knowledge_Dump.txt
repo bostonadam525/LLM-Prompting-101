@@ -4,13 +4,27 @@ Date: 6/3/2024
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Generative AI Models I have worked with
 ================================================================================================================================================================================
+Decoder models
 - GPT 3.5 turbo
 - GPT 4.0
 - llama 2, llama 3
-- BERT
-- Flan T5 (encoder-decoder)
+- Mistral
+- Claude
 - Whisper
 - Wav2Vec
+
+Encoder-Decoder
+- BART
+- T5
+- Flan T5
+
+Encoder Models
+- BERT
+- AlBERT
+- DistilBERT
+- DeBERTa
+- Roberta
+- Longformer, BigBird
 
 Medical Specific Models
 - RadBERT
